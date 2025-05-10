@@ -3,9 +3,12 @@
 import Link from 'next/link';
 import Logo from './logo';
 import { SignedIn, SignedOut, useUser } from '@clerk/nextjs';
-
+import { useCollections } from '@/hooks/collection/use-collections';
 const Navbar = () => {
 	const { user } = useUser();
+	const { data: collections } = useCollections();
+
+	console.log(collections);
 
 	return (
 		<div className='bg-purple-200 w-full sticky border-b border-gray-400 top-0 flex justify-between items-center px-5'>
@@ -24,7 +27,13 @@ const Navbar = () => {
 					</div>
 				</SignedOut>
 				<SignedIn>
-					<div className='flex gap-5 items-center'></div>
+					<div className='flex gap-5 items-center'>
+						{collections?.map((collection) => (
+							<Link href={`/profile/${collection.id}`} key={collection.id}>
+								{collection.name}
+							</Link>
+						))}
+					</div>
 				</SignedIn>
 			</div>
 			<div>
