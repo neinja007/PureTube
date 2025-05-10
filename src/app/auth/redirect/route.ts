@@ -24,5 +24,5 @@ export const GET = async (req: NextRequest) => {
 		}
 	});
 
-	return NextResponse.redirect(new URL('/home', req.url));
+	return NextResponse.redirect(new URL('/profile/default', req.url));
 };
