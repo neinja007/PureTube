@@ -28,7 +28,7 @@ export default function RootLayout({
 			<html lang='en'>
 				<body className={`${geistSans.className} ${geistMono.variable} antialiased`}>
 					<Navbar />
-					<div className='h-screen w-full max-w-screen-2xl mx-auto pb-16'>{children}</div>
+					<div className='w-full max-w-screen-2xl mx-auto pb-16'>{children}</div>
 				</body>
 			</html>
 		</ClerkProvider>
