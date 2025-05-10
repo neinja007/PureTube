@@ -7,6 +7,10 @@ export default clerkMiddleware(async (auth, req) => {
 	if (!userId && isProtectedRoute(req)) {
 		return NextResponse.redirect(new URL('/', req.url));
 	}
+
+	if (userId && !isProtectedRoute(req)) {
+		return NextResponse.redirect(new URL('/home', req.url));
+	}
 });
 
 const isProtectedRoute = createRouteMatcher(['/((?!api|trpc|auth/sign-in|auth/sign-up|$).*)']);
