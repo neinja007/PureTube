@@ -4,7 +4,6 @@ import './globals.css';
 import { ClerkProvider } from '@clerk/nextjs';
 import Navbar from '@/components/navbar';
 import { QueryProvider } from '@/components/query-provider';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const geistSans = Geist({
 	subsets: ['latin']
@@ -34,7 +33,6 @@ export default function RootLayout({
 						<div className='w-full max-w-screen-2xl mx-auto pb-16'>{children}</div>
 					</body>
 				</html>
-				<ReactQueryDevtools initialIsOpen={false} />
 			</QueryProvider>
 		</ClerkProvider>
 	);
