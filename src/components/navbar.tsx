@@ -12,9 +12,9 @@ const Navbar = () => {
 	console.log(collections);
 
 	return (
-		<div className='bg-purple-200 w-full sticky border-b border-gray-400 top-0 flex justify-between items-center px-5'>
-			<div className='flex items-center gap-5'>
-				<Link href={user ? '/profile/default' : '/'} className='py-4 border-r border-gray-400 pr-5'>
+		<div className='bg-purple-200 w-full sticky border-b border-gray-400 top-0 flex justify-between items-center px-6'>
+			<div className='flex items-center gap-6'>
+				<Link href={user ? '/profile/default' : '/'} className='py-4 border-r border-gray-400 pr-6'>
 					<Logo size='md' />
 				</Link>
 				<SignedOut>
@@ -28,7 +28,7 @@ const Navbar = () => {
 					</div>
 				</SignedOut>
 				<SignedIn>
-					<div className='flex gap-5 items-center'>
+					<div className='flex gap-6 items-center'>
 						{collections?.map((collection) => (
 							<Link href={`/profile/${collection.id}`} key={collection.id}>
 								{collection.name}
