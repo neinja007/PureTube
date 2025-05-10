@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Logo from './logo';
 import { SignedIn, SignedOut, useUser } from '@clerk/nextjs';
 import { useCollections } from '@/hooks/collection/use-collections';
+
 const Navbar = () => {
 	const { user } = useUser();
 	const { data: collections } = useCollections();
