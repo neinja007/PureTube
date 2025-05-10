@@ -10,8 +10,6 @@ const Navbar = () => {
 	const { user } = useUser();
 	const { data: collections } = useCollections();
 
-	console.log(collections);
-
 	return (
 		<div className='bg-purple-200 w-full sticky border-b border-gray-400 top-0 flex justify-between items-center px-6'>
 			<div className='flex items-center gap-6'>
