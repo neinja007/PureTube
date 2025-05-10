@@ -7,6 +7,12 @@ const Navbar = () => {
 			<Link href='/'>
 				<Logo size='md' />
 			</Link>
+			<div>
+				Developed by{' '}
+				<Link href='https://neinja.dev' className='text-blue-500 hover:underline'>
+					neinja.dev
+				</Link>
+			</div>
 		</div>
 	);
 };
