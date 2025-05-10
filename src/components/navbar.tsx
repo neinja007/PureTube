@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Logo from './logo';
 import { SignedIn, SignedOut, useUser } from '@clerk/nextjs';
 import { useCollections } from '@/hooks/collection/use-collections';
+import { Button } from './ui/button';
 
 const Navbar = () => {
 	const { user } = useUser();
@@ -34,6 +35,9 @@ const Navbar = () => {
 								{collection.name}
 							</Link>
 						))}
+						<Link href='/profile/new' className='text-black'>
+							<Button>New Collection</Button>
+						</Link>
 					</div>
 				</SignedIn>
 			</div>
