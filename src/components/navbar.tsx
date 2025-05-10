@@ -8,7 +8,7 @@ const Navbar = () => {
 				<Logo size='md' />
 			</Link>
 			<div>
-				Developed by{' '}
+				App by{' '}
 				<Link href='https://neinja.dev' className='text-blue-500 hover:underline'>
 					neinja.dev
 				</Link>
