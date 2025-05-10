@@ -9,7 +9,7 @@ export default clerkMiddleware(async (auth, req) => {
 	}
 
 	if (userId && !isProtectedRoute(req)) {
-		return NextResponse.redirect(new URL('/home', req.url));
+		return NextResponse.redirect(new URL('/profile/default', req.url));
 	}
 });
 
