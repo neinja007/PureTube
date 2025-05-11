@@ -34,6 +34,18 @@ const Page = () => {
 					</Button>
 				</Link>
 			</h1>
+			<div className='flex flex-col gap-4'>
+				{collection?.channels.length && collection?.channels.length > 0 ? (
+					collection?.channels.map((channel) => <div key={channel.id}>{channel.name}</div>)
+				) : (
+					<div>
+						No channels found.{' '}
+						<Link href={`/profile/${id}/edit`} className='hover:underline text-blue-500'>
+							You can add some here.
+						</Link>
+					</div>
+				)}
+			</div>
 		</div>
 	);
 };
