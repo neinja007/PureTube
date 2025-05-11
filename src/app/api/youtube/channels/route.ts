@@ -20,14 +20,16 @@ export async function GET(request: NextRequest) {
 				(item: {
 					id: { kind: string; channelId: string };
 					snippet: { title: string; thumbnails: { default: { url: string } } };
+					statistics: { subscriberCount: string };
 				}) => ({
 					id: item.id?.channelId,
 					name: item.snippet?.title,
+					subscribers: item.statistics?.subscriberCount,
 					thumbnail: item.snippet?.thumbnails?.default?.url
 				})
 			) || [];
 
-		return NextResponse.json({ channels });
+		return NextResponse.json(channels);
 	} catch (error) {
 		console.error('YouTube API error:', error);
 		return NextResponse.json({ error: 'Failed to fetch channels' }, { status: 500 });
