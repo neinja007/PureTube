@@ -9,7 +9,6 @@ import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { DialogTrigger } from '@radix-ui/react-dialog';
 
 const Page = () => {
 	const params = useParams();
@@ -41,27 +40,25 @@ const Page = () => {
 					))
 				)}
 				<div className='h-10'>
-					<Dialog open={isOpen} onOpenChange={setIsOpen}>
-						<DialogTrigger>
-							<Button className='size-full' variant='outline' onClick={() => setIsOpen(true)}>
-								<Plus /> Add Channel
-							</Button>
-						</DialogTrigger>
-						<DialogContent>
-							<DialogHeader>
-								<DialogTitle>Add Channel</DialogTitle>
-							</DialogHeader>
-							<div className='py-4'>
-								<Input
-									placeholder='Search for a channel...'
-									value={searchQuery}
-									onChange={(e) => setSearchQuery(e.target.value)}
-								/>
-							</div>
-						</DialogContent>
-					</Dialog>
+					<Button className='size-full' variant='outline' onClick={() => setIsOpen(true)}>
+						<Plus /> Add Channel
+					</Button>
 				</div>
 			</div>
+			<Dialog open={isOpen} onOpenChange={setIsOpen}>
+				<DialogContent>
+					<DialogHeader>
+						<DialogTitle>Add Channel</DialogTitle>
+					</DialogHeader>
+					<div className='py-4'>
+						<Input
+							placeholder='Search for a channel...'
+							value={searchQuery}
+							onChange={(e) => setSearchQuery(e.target.value)}
+						/>
+					</div>
+				</DialogContent>
+			</Dialog>
 		</div>
 	);
 };
