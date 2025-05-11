@@ -25,7 +25,7 @@ const Page = () => {
 		}
 	}, [user, replace, id]);
 
-	const { data: collection, status } = useCollection(id || '');
+	const { data: collection } = useCollection(id || '');
 
 	useEffect(() => {
 		if (collection?.channels) {
@@ -47,8 +47,8 @@ const Page = () => {
 						<DialogHeader>
 							<DialogTitle>Edit {collection?.name}</DialogTitle>
 						</DialogHeader>
-						<ChannelList channels={channels} status={status} />
-						<ChannelSearch onChannelSelect={(channelName) => setChannels([...channels, channelName])} />
+						<ChannelList channels={channels} />
+						<ChannelSearch onChannelSelect={(channelId) => setChannels([...channels, channelId])} />
 					</DialogContent>
 				</Dialog>
 			</h1>
