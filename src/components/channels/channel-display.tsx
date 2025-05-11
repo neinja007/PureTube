@@ -1,32 +1,35 @@
 import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
 import { Plus } from 'lucide-react';
+import { useYoutubeChannel } from '@/hooks/use-youtube-channel';
 
 interface ChannelDisplayProps {
-	name: string;
-	thumbnail?: string;
-	subscribers?: string;
+	id: string;
 	onClick?: () => void;
 	showAddButton?: boolean;
 }
 
-export const ChannelDisplay = ({
-	name,
-	thumbnail,
-	subscribers,
-	onClick,
-	showAddButton = false
-}: ChannelDisplayProps) => {
+export const ChannelDisplay = ({ id, onClick, showAddButton = false }: ChannelDisplayProps) => {
+	const { data: channelData } = useYoutubeChannel(id);
+
 	const content = (
 		<div
 			className={`flex items-center gap-2 p-2 rounded-md ${onClick ? 'hover:bg-gray-100 cursor-pointer' : ''} group`}
 		>
-			{thumbnail && <Image src={thumbnail} alt={name} width={30} height={30} className='rounded-full' />}
+			{channelData?.[0]?.thumbnail && (
+				<Image
+					src={channelData[0].thumbnail}
+					alt={channelData[0].name}
+					width={30}
+					height={30}
+					className='rounded-full'
+				/>
+			)}
 			<div className='flex-1 min-w-0'>
-				<div className='truncate'>{name}</div>
-				{subscribers && (
+				<div className='truncate'>{channelData?.[0]?.name || 'Loading...'}</div>
+				{channelData?.[0]?.subscribers && (
 					<Badge variant='secondary' className='text-xs'>
-						{parseInt(subscribers).toLocaleString('en-US', { notation: 'compact' })}
+						{parseInt(channelData[0].subscribers).toLocaleString('en-US', { notation: 'compact' })}
 					</Badge>
 				)}
 			</div>

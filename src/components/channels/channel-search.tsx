@@ -31,14 +31,11 @@ export const ChannelSearch = ({ onChannelSelect }: ChannelSearchProps) => {
 					{searchResult?.map((channel) => (
 						<ChannelDisplay
 							key={channel.id}
-							name={channel.name}
-							thumbnail={channel.thumbnail}
-							subscribers={channel.subscribers}
+							id={channel.id}
 							onClick={() => {
-								onChannelSelect(channel.name);
+								onChannelSelect(channel.id);
 								setSearchQuery('');
 							}}
-							showAddButton
 						/>
 					))}
 				</div>
