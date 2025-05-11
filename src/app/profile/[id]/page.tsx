@@ -2,15 +2,26 @@
 
 import { Button } from '@/components/ui/button';
 import { useCollection } from '@/hooks/collection/use-collection';
+import { useUser } from '@clerk/nextjs';
 import { Settings } from 'lucide-react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const Page = () => {
 	const params = useParams();
 	const id = params.id as string;
 
-	console.log(id);
+	const { user } = useUser();
+
+	const { replace } = useRouter();
+
+	useEffect(() => {
+		if (user?.username && id === 'default' && user.username !== 'default') {
+			replace(`/profile/${user.username}`);
+		}
+	}, [user, replace, id]);
+
 	const { data: collection } = useCollection(id || '');
 
 	return (
