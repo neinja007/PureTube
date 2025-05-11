@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { currentUser } from '@clerk/nextjs/server';
 import { prisma } from '@/lib/prisma-client';
+import { channelSchema } from '@/app/schemas/channel';
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
 	try {
@@ -41,6 +42,12 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 		const { id } = await params;
 		const body = await request.json();
 
+		const { data, error } = channelSchema.safeParse(body);
+
+		if (!data) {
+			return NextResponse.json({ message: 'Invalid request body', error: error?.message }, { status: 400 });
+		}
+
 		if (!user) {
 			return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
 		}
@@ -50,7 +57,16 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 				id,
 				userUsername: user.username
 			},
-			data: body
+			data: {
+				name: data.name,
+				channels: {
+					createMany: {
+						data: data.channels.map((channel) => ({
+							name: channel
+						}))
+					}
+				}
+			}
 		});
 
 		return NextResponse.json(collection, { status: 200 });
