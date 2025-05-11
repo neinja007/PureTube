@@ -1,3 +1,4 @@
+import { CollectionFeed } from '@/components/collection-feed';
 import { Button } from '@/components/ui/button';
 import { Settings } from 'lucide-react';
 import Link from 'next/link';
@@ -15,6 +16,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 					</Button>
 				</Link>
 			</h1>
+			<CollectionFeed id={id} />
 		</div>
 	);
 };
