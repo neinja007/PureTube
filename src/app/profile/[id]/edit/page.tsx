@@ -6,15 +6,18 @@ import { useCollection } from '@/hooks/collection/use-collection';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { Check, Plus, X } from 'lucide-react';
+import { DialogTrigger } from '@radix-ui/react-dialog';
 
 const Page = () => {
 	const params = useParams();
 	const id = params.id as string;
 
-	const [channel, setChannel] = useState<string | null>(null);
 	const [channels, setChannels] = useState<string[]>([]);
+	const [isOpen, setIsOpen] = useState(false);
+	const [searchQuery, setSearchQuery] = useState('');
 
 	const { data: collection, status } = useCollection(id || '');
 
@@ -38,28 +41,25 @@ const Page = () => {
 					))
 				)}
 				<div className='h-10'>
-					{typeof channel === 'string' ? (
-						<div className='flex items-center gap-2 size-full'>
-							<Input
-								placeholder='Paste Channel ID'
-								className='size-full'
-								value={channel}
-								onChange={(e) => setChannel(e.target.value)}
-							/>
-							{channel && (
-								<Button variant='outline' onClick={() => setChannel('')}>
-									<Check />
-								</Button>
-							)}
-							<Button variant='destructive' onClick={() => setChannel(null)}>
-								<X />
+					<Dialog open={isOpen} onOpenChange={setIsOpen}>
+						<DialogTrigger>
+							<Button className='size-full' variant='outline' onClick={() => setIsOpen(true)}>
+								<Plus /> Add Channel
 							</Button>
-						</div>
-					) : (
-						<Button className='size-full' variant='outline' onClick={() => setChannel('')}>
-							<Plus /> Add Channel
-						</Button>
-					)}
+						</DialogTrigger>
+						<DialogContent>
+							<DialogHeader>
+								<DialogTitle>Add Channel</DialogTitle>
+							</DialogHeader>
+							<div className='py-4'>
+								<Input
+									placeholder='Search for a channel...'
+									value={searchQuery}
+									onChange={(e) => setSearchQuery(e.target.value)}
+								/>
+							</div>
+						</DialogContent>
+					</Dialog>
 				</div>
 			</div>
 		</div>
