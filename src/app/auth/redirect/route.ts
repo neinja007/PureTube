@@ -18,7 +18,8 @@ export const GET = async (req: NextRequest) => {
 			username: user.username,
 			collections: {
 				create: {
-					name: 'Default'
+					name: 'Default',
+					id: user.username
 				}
 			}
 		}
