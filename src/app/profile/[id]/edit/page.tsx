@@ -9,6 +9,9 @@ import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { useYoutubeChannels } from '@/hooks/use-youtube-channels';
+import Image from 'next/image';
+import { Badge } from '@/components/ui/badge';
 
 const Page = () => {
 	const params = useParams();
@@ -19,6 +22,7 @@ const Page = () => {
 	const [searchQuery, setSearchQuery] = useState('');
 
 	const { data: collection, status } = useCollection(id || '');
+	const { data: searchResult, status: channelsStatus } = useYoutubeChannels(searchQuery);
 
 	useEffect(() => {
 		if (collection?.channels) {
@@ -57,6 +61,24 @@ const Page = () => {
 							onChange={(e) => setSearchQuery(e.target.value)}
 						/>
 					</div>
+					{channelsStatus === 'pending' ? (
+						<div>Loading...</div>
+					) : (
+						searchResult?.map((channel) => (
+							<button
+								key={channel.id}
+								className='flex items-center gap-2 hover:bg-gray-100 p-2 rounded-md group'
+								onClick={() => {
+									setChannels([...channels, channel.name]);
+								}}
+							>
+								<Image src={channel.thumbnail} alt={channel.name} width={30} height={30} />
+								<div>{channel.name}</div>
+								<Badge>{parseInt(channel.subscribers).toLocaleString('en-US', { notation: 'compact' })}</Badge>
+								<Plus className='ml-auto opacity-0 group-hover:opacity-100 transition-opacity' />
+							</button>
+						))
+					)}
 				</DialogContent>
 			</Dialog>
 		</div>
